@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/demojuillet",
+            "outputPath": "dist/demojuillet/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
