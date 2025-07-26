@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ProduitsService} from "../../services/produits.service";
 import {PageEvent} from "@angular/material/paginator";
 import Swal from "sweetalert2";
+import {MatDialog} from "@angular/material/dialog";
+import {ModifierproduitComponent} from "../modifierproduit/modifierproduit.component";
 
 @Component({
   selector: 'app-produits',
@@ -9,7 +11,7 @@ import Swal from "sweetalert2";
   styleUrls: ['./produits.component.css']
 })
 export class ProduitsComponent implements OnInit{
-constructor(private productService:ProduitsService) {
+constructor(private productService:ProduitsService, public dialog:MatDialog) {
 }
 message:string='';
 public produits:any=[];
@@ -64,5 +66,47 @@ OndeleteProduits(id:number|undefined){
   }
   this.paginatedPorduits();
   }
+selectetat:string='ALL';
+filterproducts(){
+  if(this.selectetat!==undefined && this.selectetat!=null &&this.selectetat!='ALL'){
+    const selectdEtatNumber= Number(this.selectetat);
+    this.filtredproduits=this.produits.filter((produit:any)=>produit.etat===selectdEtatNumber);
+  }else{
+    this.filtredproduits=this.produits;
+  }
+  this.paginatedPorduits();
+}
+searchKeyword:string='';
+seachProduits(){
+  if(this.searchKeyword){
+    this.filtredproduits=this.produits.filter((produit:any)=>
+    produit.libelle.toLowerCase().includes(this.searchKeyword.toLowerCase())||
+    produit.marque.toLowerCase().includes(this.searchKeyword.toLowerCase()));
+  }else{
+    this.filtredproduits=this.produits
+  }
+  this.paginatedPorduits();
+}
+selectedProduit:any;
+openDialog(produit:any){
+  this.selectedProduit=produit;
+  const dialogRef=this.dialog.open(
+    ModifierproduitComponent,{
+      width:'auto',
+      data:{produit:produit}
+    }
+  );
+  dialogRef.componentInstance.update.subscribe((updateproduit:any)=>{
+    const index=this.produits.findIndex((item:any)=>item.idProduit===updateproduit.idProduit);
+    if(index!== -1){
+      this.produits[index].libelle=updateproduit.libelle;
+      this.produits[index].description=updateproduit.description;
+      this.produits[index].marque=updateproduit.marque;
+      this.filtredproduits=this.produits;
+    }
+    }
 
+  )
+  this.paginatedPorduits();
+}
 }

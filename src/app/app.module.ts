@@ -30,6 +30,10 @@ import {MatTableModule} from "@angular/material/table";
 import {MatCardModule} from "@angular/material/card";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { DetailsproduitsComponent } from './pages/detailsproduits/detailsproduits.component';
+import { ModifierproduitComponent } from './pages/modifierproduit/modifierproduit.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { ForbidenComponent } from './pages/forbiden/forbiden.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +46,11 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     LoginComponent,
     ModalComponent,
     AjoutproduitComponent,
-    ProduitsComponent
+    ProduitsComponent,
+    DetailsproduitsComponent,
+    ModifierproduitComponent,
+    AdminComponent,
+    ForbidenComponent
   ],
   imports: [
     AppRoutingModule,

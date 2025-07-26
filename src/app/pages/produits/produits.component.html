@@ -7,6 +7,27 @@
 </header>
 <br>
 <div >
+
+
+  <br><br><br><br><br><br>
+  <div class="input-block select-form mb-1">
+    <select class="form-select select"  [(ngModel)]="selectetat" (change)="filterproducts()">
+      <option value="ALL">ALL</option>
+      <option value="1">gerer</option>
+      <option value="0">en attente</option>
+    </select>
+  </div>
+<div class="card search-widget blog-search blog-widget">
+  <div class="card-body">
+    <form class="search-form" (submit)="seachProduits()">
+      <div class="input-group">
+        <input type="text" [(ngModel)]="searchKeyword" name="keyword" placeholder="Search..." class="form-control">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+      </div>
+    </form>
+  </div>
+
+</div>
   <div class="container">
 
     <div class="row">
@@ -16,7 +37,7 @@
 
             <div class="blog grid-modern" >
               <div class="blog-image">
-                <a>
+                <a [routerLink]="['/acceuil/produit',u.idProduit]">
                   <img class="img-fluid responsive-image" [src]="'http://localhost:8082/image/'+u.picture" alt >
                 </a>
 
@@ -33,7 +54,7 @@
                 </div>
                 <button mat-raised-button color="warn"   (click)="OndeleteProduits(u.idProduit)">Supprimer</button>
 
-                <button mat-raised-button color="primary"  >Modifier</button>
+                <button mat-raised-button color="primary" (click)="openDialog(u)"  >Modifier</button>
               </div></div></div>
         </div>
       </div></div>
